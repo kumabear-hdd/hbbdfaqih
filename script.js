@@ -7,7 +7,7 @@
 
 /* ─── CONFIGURATION ──────────────────────────────────────────── */
 const CONFIG = {
-  PIN: '100323',
+  PIN: '091125',
   NAME: 'Sayang',
   DATE: '7 Agustus',
 
