@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Love</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4A2535, #2E1020);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .heart-qr {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 0 auto 30px;
+    }
+
+    .heart-shape {
+      position: relative;
+      width: 280px;
+      height: 280px;
+    }
+
+    .heart-shape::before,
+    .heart-shape::after {
+      content: '';
+      position: absolute;
+      width: 140px;
+      height: 220px;
+      background: white;
+      border-radius: 140px 140px 0 0;
+    }
+
+    .heart-shape::before {
+      left: 140px;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+    }
+
+    .heart-shape::after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    .qr-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      z-index: 2;
+    }
+
+    .qr-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .title {
+      color: #FF96B4;
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #BE91A5;
+      font-size: 14px;
+      font-weight: 200;
+    }
+
+    .heart-emoji {
+      font-size: 48px;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Heart frame around QR */
+    .heart-frame {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: 300px;
+      height: 300px;
+      pointer-events: none;
+    }
+
+    .heart-frame svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 20px rgba(255, 150, 180, 0.5));
+    }
+
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .float-heart {
+      position: absolute;
+      bottom: -50px;
+      animation: floatUp linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" id="floating-hearts"></div>
+
+  <div class="container">
+    <div class="heart-emoji">💕</div>
+    <h1 class="title">Scan Me!</h1>
+    <p class="subtitle">Open with your phone camera</p>
+
+    <div class="heart-qr">
+      <div class="heart-shape">
+        <div class="qr-wrapper">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fhbdfaqih.netlify.app%2F&format=png&bgcolor=FFFFFF&color=4A2535" alt="QR Code">
+        </div>
+      </div>
+
+      <!-- Heart outline frame -->
+      <div class="heart-frame">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FF96B4;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#E8698A;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <path d="M150 280
+            C150 280, 30 180, 30 110
+            C30 60, 70 30, 110 30
+            C130 30, 145 45, 150 60
+            C155 45, 170 30, 190 30
+            C230 30, 270 60, 270 110
+            C270 180, 150 280, 150 280Z"
+            fill="none"
+            stroke="url(#heartGrad)"
+            stroke-width="4"
+            stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <p class="subtitle" style="margin-top: 20px;">🌸 Happy Birthday Faqih 🌸</p>
+  </div>
+
+  <script>
+    // Create floating hearts
+    const container = document.getElementById('floating-hearts');
+    const emojis = ['💕', '❤️', '💖', '💗', '🌸', '🌺'];
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'float-heart';
+      heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      heart.style.animationDelay = Math.random() * 3 + 's';
+      container.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 10000);
+    }
+
+    // Create initial hearts
+    for (let i = 0; i < 15; i++) {
+      setTimeout(createHeart, i * 300);
+    }
+
+    // Keep creating hearts
+    setInterval(createHeart, 800);
+  </script>
+</body>
+</html>
