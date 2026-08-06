@@ -52,6 +52,8 @@ const CONFIG = {
 
   PLAYLIST: [
     { name: '1000X', artist: 'Ghea Indrawari', emoji: '🎵', url: 'music/song1.mp3' },
+    { name: 'Kita Usahakan Rumah Itu', artist: 'Sal Priadi', emoji: '🎵', url: 'music/song2.mp3' },
+    { name: 'Shape of My Heart', artist: 'Backstreet Boys', emoji: '🎵', url: 'music/song3.mp3' },
   ],
 
   REASONS: [
