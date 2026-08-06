@@ -685,7 +685,7 @@ function initPolaroids() {
     let photoContent = '';
     if (photo.url && photo.url.trim() !== '') {
       photoContent = `<img src="${photo.url}" alt="${photo.caption}" loading="lazy"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block;border-radius:12px 12px 4px 4px;">`;
+        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;border-radius:12px 12px 4px 4px;">`;
     } else {
       photoContent = `<div style="position:absolute;top:0;left:0;width:100%;height:100%;
         background:linear-gradient(135deg,#ffc0d0,#ff96b4);
@@ -733,7 +733,7 @@ function openPhotoModal(photo) {
   if (modalPhoto) {
     if (photo.url && photo.url.trim() !== '') {
       modalPhoto.innerHTML = `<img src="${photo.url}" alt="${photo.caption}"
-        style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;border-radius:8px;">`;
+        style="width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;border-radius:8px;">`;
     } else {
       modalPhoto.innerHTML = '';
       modalPhoto.textContent = photo.emoji || '📷';
