@@ -20,13 +20,11 @@
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .title { color:#FF96B4; font-size:24px; font-weight:300; margin-bottom:8px; }
     .subtitle { color:#BE91A5; font-size:14px; font-weight:200; margin-bottom:30px; }
-    .qr-wrapper { display:inline-block; position:relative; filter:drop-shadow(0 0 30px rgba(255,150,180,0.4)); }
-    canvas { display:block; margin:0 auto; }
+    canvas { display:block; margin:0 auto; filter:drop-shadow(0 0 30px rgba(255,150,180,0.4)); }
     .footer { color:#BE91A5; font-size:14px; margin-top:30px; }
     .floating-hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; }
     .float-heart { position:absolute; bottom:-50px; animation:floatUp linear infinite; opacity:0.6; }
     @keyframes floatUp { 0%{transform:translateY(0) rotate(0deg);opacity:0.6} 100%{transform:translateY(-100vh) rotate(360deg);opacity:0} }
-    .loading { color:#FF96B4; font-size:16px; margin:40px 0; }
   </style>
 </head>
 <body>
@@ -35,109 +33,82 @@
     <div class="heart-emoji">💕</div>
     <h1 class="title">Scan Me!</h1>
     <p class="subtitle">Open with your phone camera</p>
-    <div class="qr-wrapper">
-      <canvas id="qr-canvas" width="350" height="350"></canvas>
-    </div>
+    <canvas id="qr-canvas"></canvas>
     <p class="footer">🌸 Happy Birthday Faqih 🌸</p>
   </div>
 
   <script>
     const canvas = document.getElementById('qr-canvas');
     const ctx = canvas.getContext('2d');
-    const heartSize = 350;
 
-    // Load QR code from API
+    // Load QR code with HIGH error correction (H level = 30% recovery)
+    // This allows parts to be covered and still scannable
     const qrImg = new Image();
     qrImg.crossOrigin = 'anonymous';
-    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fhbdfaqih.netlify.app%2F&format=png&bgcolor=FFFFFF&color=2E1020&qzone=2';
+    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=https%3A%2F%2Fhbdfaqih.netlify.app%2F&format=png&bgcolor=FFFFFF&color=2E1020&qzone=4&ecc=H';
 
     qrImg.onload = function() {
-      // Clear canvas
-      ctx.clearRect(0, 0, heartSize, heartSize);
+      const W = 420;
+      const H = 440;
+      canvas.width = W;
+      canvas.height = H;
 
       // Background
       ctx.fillStyle = '#4A2535';
-      ctx.fillRect(0, 0, heartSize, heartSize);
+      ctx.fillRect(0, 0, W, H);
 
-      // Create heart clipping path
+      // Heart path function
+      function heartPath(cx, cy, s) {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy + s * 0.35);
+        // Left bump
+        ctx.bezierCurveTo(cx - s * 0.02, cy + s * 0.25, cx - s * 0.7, cy + s * 0.05, cx - s * 0.7, cy - s * 0.2);
+        ctx.bezierCurveTo(cx - s * 0.7, cy - s * 0.55, cx - s * 0.3, cy - s * 0.6, cx, cy - s * 0.35);
+        // Right bump
+        ctx.bezierCurveTo(cx + s * 0.3, cy - s * 0.6, cx + s * 0.7, cy - s * 0.55, cx + s * 0.7, cy - s * 0.2);
+        ctx.bezierCurveTo(cx + s * 0.7, cy + s * 0.05, cx + s * 0.02, cy + s * 0.25, cx, cy + s * 0.35);
+        ctx.closePath();
+      }
+
+      const cx = W / 2;
+      const cy = H / 2 + 10;
+      const s = 340;
+
+      // Clip and draw QR code inside heart
       ctx.save();
-      ctx.beginPath();
-      const cx = heartSize / 2;
-      const cy = heartSize / 2;
-      const s = heartSize * 0.45;
-
-      // Heart shape
-      const topCurveHeight = s * 0.3;
-      ctx.moveTo(cx, cy + s * 0.7);
-      ctx.bezierCurveTo(
-        cx - s * 0.05, cy + s * 0.55,
-        cx - s * 1.0, cy + s * 0.2,
-        cx - s * 1.0, cy - topCurveHeight
-      );
-      ctx.bezierCurveTo(
-        cx - s * 1.0, cy - s * 0.8,
-        cx - s * 0.35, cy - s * 0.95,
-        cx, cy - s * 0.5
-      );
-      ctx.bezierCurveTo(
-        cx + s * 0.35, cy - s * 0.95,
-        cx + s * 1.0, cy - s * 0.8,
-        cx + s * 1.0, cy - topCurveHeight
-      );
-      ctx.bezierCurveTo(
-        cx + s * 1.0, cy + s * 0.2,
-        cx + s * 0.05, cy + s * 0.55,
-        cx, cy + s * 0.7
-      );
-      ctx.closePath();
+      heartPath(cx, cy, s);
       ctx.clip();
 
-      // Draw QR code inside heart
-      const imgSize = heartSize * 0.85;
-      const offsetX = (heartSize - imgSize) / 2;
-      const offsetY = (heartSize - imgSize) / 2 + 10;
-      ctx.drawImage(qrImg, offsetX, offsetY, imgSize, imgSize);
+      // Draw QR code - slightly smaller to keep corners safe
+      const qrDrawSize = 360;
+      const ox = (W - qrDrawSize) / 2;
+      const oy = (H - qrDrawSize) / 2 + 10;
+      ctx.drawImage(qrImg, ox, oy, qrDrawSize, qrDrawSize);
 
+      // Semi-transparent pink overlay on the bottom part (inside heart curve)
+      // to make the heart shape more visible
       ctx.restore();
 
-      // Draw heart outline glow
+      // Draw heart outline with glow
       ctx.save();
-      ctx.shadowColor = 'rgba(255, 150, 180, 0.6)';
-      ctx.shadowBlur = 25;
+      ctx.shadowColor = 'rgba(255, 150, 180, 0.8)';
+      ctx.shadowBlur = 30;
       ctx.strokeStyle = '#FF96B4';
-      ctx.lineWidth = 4;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy + s * 0.7);
-      ctx.bezierCurveTo(
-        cx - s * 0.05, cy + s * 0.55,
-        cx - s * 1.0, cy + s * 0.2,
-        cx - s * 1.0, cy - topCurveHeight
-      );
-      ctx.bezierCurveTo(
-        cx - s * 1.0, cy - s * 0.8,
-        cx - s * 0.35, cy - s * 0.95,
-        cx, cy - s * 0.5
-      );
-      ctx.bezierCurveTo(
-        cx + s * 0.35, cy - s * 0.95,
-        cx + s * 1.0, cy - s * 0.8,
-        cx + s * 1.0, cy - topCurveHeight
-      );
-      ctx.bezierCurveTo(
-        cx + s * 1.0, cy + s * 0.2,
-        cx + s * 0.05, cy + s * 0.55,
-        cx, cy + s * 0.7
-      );
-      ctx.closePath();
+      ctx.lineWidth = 5;
+      heartPath(cx, cy, s);
       ctx.stroke();
       ctx.restore();
-    };
 
-    qrImg.onerror = function() {
+      // Draw a subtle fill on the areas outside QR but inside heart
+      // to make heart shape more visible
+      ctx.save();
+      heartPath(cx, cy, s);
+      ctx.clip();
+      ctx.globalAlpha = 0.08;
       ctx.fillStyle = '#FF96B4';
-      ctx.font = '16px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('Loading QR...', heartSize/2, heartSize/2);
+      // Draw pink tint on the curved bottom area of heart
+      ctx.fillRect(0, cy + s * 0.1, W, H - cy);
+      ctx.restore();
     };
 
     // Floating hearts
