@@ -8,7 +8,7 @@
 /* ─── CONFIGURATION ──────────────────────────────────────────── */
 const CONFIG = {
   PIN: '100323',
-  NAME: 'Ciwa',
+  NAME: 'Faqih',
   DATE: 'June 10',
 
   TYPEWRITER_TEXTS: [
