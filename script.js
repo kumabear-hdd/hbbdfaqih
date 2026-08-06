@@ -177,7 +177,7 @@ function initPinCanvas() {
       if (p.y > canvas.height) p.y = 0;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,150,180,${p.a})`;
+      ctx.fillStyle = `rgba(79,195,247,${p.a})`;
       ctx.fill();
     });
     requestAnimationFrame(draw);
@@ -336,7 +336,7 @@ function createGiftParticles() {
       position: absolute;
       width: ${rand(2, 5)}px; height: ${rand(2, 5)}px;
       border-radius: 50%;
-      background: rgba(255,150,180,${rand(0.2, 0.5)});
+      background: rgba(79,195,247,${rand(0.2, 0.5)});
       left: ${rand(20, 80)}%;
       top: ${rand(30, 70)}%;
       animation: giftParticle ${rand(3, 6)}s ease-in-out infinite;
@@ -685,7 +685,7 @@ function initPolaroids() {
     let photoContent = '';
     if (photo.url && photo.url.trim() !== '') {
       photoContent = `<img src="${photo.url}" alt="${photo.caption}" loading="lazy"
-        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:12px 12px 4px 4px;">`;
+        style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block;border-radius:12px 12px 4px 4px;">`;
     } else {
       photoContent = `<div style="position:absolute;top:0;left:0;width:100%;height:100%;
         background:linear-gradient(135deg,#ffc0d0,#ff96b4);
@@ -695,7 +695,7 @@ function initPolaroids() {
 
     el.innerHTML = `
       <div class="polaroid-tape" style="position:absolute;top:-8px;left:20%;width:60px;height:24px;background:rgba(255,245,200,0.8);opacity:0.7;border-radius:2px;transform:rotate(-5deg);"></div>
-      <div class="polaroid-photo" style="position:relative;width:100%;padding-bottom:75%;overflow:hidden;border-radius:12px 12px 4px 4px;">
+      <div class="polaroid-photo" style="position:relative;width:100%;padding-bottom:90%;overflow:hidden;border-radius:12px 12px 4px 4px;">
         ${photoContent}
       </div>
       <div class="polaroid-caption" style="padding:12px;font-size:14px;text-align:center;font-weight:500;">${photo.caption}</div>
@@ -733,7 +733,7 @@ function openPhotoModal(photo) {
   if (modalPhoto) {
     if (photo.url && photo.url.trim() !== '') {
       modalPhoto.innerHTML = `<img src="${photo.url}" alt="${photo.caption}"
-        style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;border-radius:8px;">`;
+        style="width:100%;height:100%;object-fit:cover;object-position:center center;display:block;border-radius:8px;">`;
     } else {
       modalPhoto.innerHTML = '';
       modalPhoto.textContent = photo.emoji || '📷';
@@ -854,7 +854,7 @@ function showAutoplayNudge() {
   nudge.style.cssText = `
     text-align:center;
     font-size:13px;
-    color:rgba(180,80,120,0.8);
+    color:rgba(2,136,209,0.8);
     margin-top:8px;
     animation:fadeInUp 0.4s ease;
     pointer-events:none;
@@ -949,7 +949,7 @@ function initReasonsJar() {
 function launchMiniConfetti() {
   for (let i = 0; i < 30; i++) {
     const c = document.createElement('div');
-    c.style.cssText = `position:fixed;left:${rand(30, 70)}%;top:${rand(40, 60)}%;width:${rand(6, 12)}px;height:${rand(6, 12)}px;background:#FF96B4;border-radius:50%;z-index:9999;pointer-events:none;animation:miniConfetti ${rand(0.8, 1.5)}s ease forwards;`;
+    c.style.cssText = `position:fixed;left:${rand(30, 70)}%;top:${rand(40, 60)}%;width:${rand(6, 12)}px;height:${rand(6, 12)}px;background:#4FC3F7;border-radius:50%;z-index:9999;pointer-events:none;animation:miniConfetti ${rand(0.8, 1.5)}s ease forwards;`;
     document.body.appendChild(c);
     setTimeout(() => c.remove(), 2000);
   }
