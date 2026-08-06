@@ -47,7 +47,7 @@ const CONFIG = {
     { date: 'Kenangan Indah', title: 'Jalan-Jalan Pertama Kita', desc: 'Petualangan kecil yang terasa seperti perjalanan ke tempat terbaik di dunia, hanya karena kamu ada di sana.', emoji: '🌿' },
     { date: 'Momen Berharga', title: 'Tawa yang Tak Pernah Berakhir', desc: 'Momen kita tertawa sampai sakit dan aku menyadari ini adalah perasaan yang ingin kugenggam selamanya.', emoji: '😄' },
     { date: 'Kenangan Manis', title: 'Keheningan Indah Bersama', desc: 'Keheningan yang nyaman di sampingmu terasa lebih hangat dari seribu kata.', emoji: '🌙' },
-    { date: 'Awal Perjalanan Kita', title: 'Hari yang Paling Spesial', desc: 'Merayakanmu dan awal dari perjalanan indah yang akan kita lalui bersama.', emoji: '🎂' },
+    { date: 'Hari Ini', title: 'Ulang Tahunmu yang Sangat Spesial', desc: 'Merayakanmu, perjalananmu, dan semua keajaiban yang kamu bawa ke dalam hidupku.', emoji: '🎂' },
   ],
 
   PLAYLIST: [
