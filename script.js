@@ -19,13 +19,13 @@ const CONFIG = {
   ],
 
   BOUQUET_FLOWERS: [
-    { emoji: '🌸', msg: 'You are as beautiful as cherry blossoms — lovely and bringing joy wherever you go.', x: 47, y: 4, delay: 0 },
-    { emoji: '🌺', msg: 'Like a hibiscus in full bloom, you are always vibrant and radiant.', x: 25, y: 18, delay: 0.3 },
-    { emoji: '🌷', msg: 'You are as sincere as a tulip — pure, elegant, and always captivating.', x: 67, y: 16, delay: 0.6 },
-    { emoji: '🌼', msg: 'Your cheerfulness is like a daisy — simple yet brightening every single day.', x: 15, y: 40, delay: 0.9 },
-    { emoji: '🌹', msg: 'You are the finest rose that ever bloomed — full of love and unmatched beauty.', x: 80, y: 38, delay: 1.2 },
-    { emoji: '🌻', msg: 'Like a sunflower, you always turn toward the light and share your warmth with everyone around you.', x: 35, y: 52, delay: 1.5 },
-    { emoji: '💐', msg: 'This entire garden is for you — because you deserve all the beauty in the world.', x: 60, y: 55, delay: 1.8 },
+    { emoji: '🌸', msg: 'You are as beautiful as cherry blossoms — lovely and bringing joy wherever you go.', x: 48, y: 2, delay: 0 },
+    { emoji: '🌺', msg: 'Like a hibiscus in full bloom, you are always vibrant and radiant.', x: 34, y: 10, delay: 0.3 },
+    { emoji: '🌷', msg: 'You are as sincere as a tulip — pure, elegant, and always captivating.', x: 62, y: 8, delay: 0.6 },
+    { emoji: '🌼', msg: 'Your cheerfulness is like a daisy — simple yet brightening every single day.', x: 26, y: 22, delay: 0.9 },
+    { emoji: '🌹', msg: 'You are the finest rose that ever bloomed — full of love and unmatched beauty.', x: 70, y: 20, delay: 1.2 },
+    { emoji: '🌻', msg: 'Like a sunflower, you always turn toward the light and share your warmth with everyone around you.', x: 40, y: 28, delay: 1.5 },
+    { emoji: '💐', msg: 'This entire garden is for you — because you deserve all the beauty in the world.', x: 56, y: 30, delay: 1.8 },
   ],
 
   POLAROIDS: [
@@ -605,7 +605,7 @@ function initBouquet() {
       position: absolute;
       cursor: pointer;
     `;
-    el.innerHTML = `<span class="b-flower-emoji" style="font-size:32px;">${flower.emoji}</span>`;
+    el.innerHTML = `<span class="b-flower-emoji" style="font-size:28px;">${flower.emoji}</span>`;
     const handleTouch = (e) => {
       e.preventDefault();
       if (msgEl) activateFlower(el, flower.msg, msgEl);

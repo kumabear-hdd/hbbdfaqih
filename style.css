@@ -775,8 +775,8 @@ section {
 
 .bouquet-container {
   position: relative;
-  width: 340px;
-  height: 420px;
+  width: 300px;
+  height: 320px;
   margin: 0 auto 32px;
   cursor: default;
 }
