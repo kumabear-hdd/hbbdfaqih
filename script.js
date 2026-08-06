@@ -9,7 +9,7 @@
 const CONFIG = {
   PIN: '100323',
   NAME: 'Sayang',
-  DATE: 'June 10',
+  DATE: '7 Agustus',
 
   TYPEWRITER_TEXTS: [
     'Hari terindah di sepanjang tahun…',
